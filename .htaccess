@@ -1,0 +1,20 @@
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Redirect to index.php if file doesn't exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Security: Protect sensitive files
+<FilesMatch "\.(sql|db|md|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect config directory
+<DirectoryMatch "^.*/config/">
+    Order allow,deny
+    Deny from all
+</DirectoryMatch>
+
